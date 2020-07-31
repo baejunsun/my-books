@@ -1,52 +1,48 @@
-.form_row {
+
+form {
+  width: 400px;
   height: 100vh;
+  margin: 100px auto;
 }
 
-.signin_bg {
-  width: 500px;
+.h1 {
+  font-size: 40px;
+  font-weight: bold;
+  color: rgb(100, 40, 40);
+  text-align: center;
 }
 
-.content {
-  margin: 0 auto;
-  width: 800px;
+.h1 .letter{
+  text-align: center;
+  font-size: 27px;
+  font-weight: bold;
 }
 
-.sign_login {
-  display: grid;
-  background-color: gainsboro;
-  grid-template-rows: 200px 40px 40px;
-  grid-template-columns: 300px 1fr;
-  grid-template-areas:
-    "head head"
-    "inputid button"
-    "inputpw button";
+.bar {
+  margin: 20px auto;
+  width: 200px;
+  height: 8px;
+  background: linear-gradient(to right, rgb(128, 59, 50), rgb(221, 180, 155));
 }
 
-.sign_login h1 {
-  margin-left: 20px;
-  grid-area: head;
+.sign_id div{
+  margin-left: 50px;
 }
 
-.sign_id {
-  margin-left: 10px;
-
-  grid-area: inputid;
-}
-
-.sign_pw {
-  margin-left: 10px;
-  margin-top: 20px;
-  grid-area: inputpw;
+.sign_pw div{
+  margin-left: 50px;
 }
 
 .sign_btn {
-  margin-top: 20px;
-
-  grid-area: button;
-  margin-left: 20px;
-  height: 92px;
+  display: block;
+  margin: 20px auto;
+  width: 120px;
+  height: 40px;
+  background-color: rgb(40, 84, 106);
 }
 
 .sign_input {
+  display: block;
+  margin: 0 auto;
   width: 300px;
 }

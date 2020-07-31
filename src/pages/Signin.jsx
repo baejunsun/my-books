@@ -1,6 +1,6 @@
 import React from 'react'
 import axios from 'axios';
-import { message, Row, Col, Button, Input } from 'antd';
+import { message, Button, Input } from 'antd';
 import "antd/dist/antd.css"
 import styles from './Signin.module.css'
 import withAuth from '../hocs/withAuth'
@@ -14,20 +14,8 @@ class Signin extends React.Component {
 
     return (
       <form>
-        <Row align="middle" justify="center" className={styles.form_row}>
-          <Col span={24}>
-            <Row className={styles.content}>
-              <Col span={12}>
-                <img
-                  src="/bg.jpeg"
-                  alt="Cat"
-                  className={styles.signin_bg}
-                />
-
-              </Col>
-              <Col span={12} className={styles.sign_login}>
-
-                <h1>Welcome to My Books</h1>
+                <h1 className={styles.h1}>HOME CODING | 홈코<p className={styles.letter}>STUDY CODING AT HOME</p></h1>
+                <div className={styles.bar}></div>
                 <p className={styles.sign_id}>
                   <div>Email</div>
                   <Input className={styles.sign_input} type="email" value={this.state.email} onChange={this.change} />
@@ -37,14 +25,9 @@ class Signin extends React.Component {
                   <Input className={styles.sign_input} type="password" ref={this.passwordRef} />
                 </p>
                 <p>
-                  <Button className={styles.sign_btn} type="primary" onClick={this.click}>Login</Button>
+                  <Button className={styles.sign_btn} type="primary" onClick={this.click}>Sign-in</Button>
                 </p>
-
-              </Col>
-            </Row>
-          </Col>
-        </Row>
-      </form >
+      </form>
     );
   }
   click = async () => {
@@ -54,7 +37,7 @@ class Signin extends React.Component {
     try {
       const response = await axios.post('https://api.marktube.tv/v1/me', { email, password });
       const token = response.data.token;
-      sessionStorage.setItem('token', token);
+      localStorage.setItem('token', token);
       this.props.history.push('/');
     } catch (err) {
       const errCode = err.response.data.error;
