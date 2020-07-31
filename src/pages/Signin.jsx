@@ -17,14 +17,6 @@ class Signin extends React.Component {
         <Row align="middle" justify="center" className={styles.form_row}>
           <Col span={24}>
             <Row className={styles.content}>
-              <Col span={12}>
-                <img
-                  src="/bg.jpeg"
-                  alt="Cat"
-                  className={styles.signin_bg}
-                />
-
-              </Col>
               <Col span={12} className={styles.sign_login}>
 
                 <h1>Welcome to My Books</h1>
