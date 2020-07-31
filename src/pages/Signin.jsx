@@ -1,89 +1,76 @@
-import React from 'react';
+import React from 'react'
 import axios from 'axios';
-import { message } from 'antd';
-import withAuth from '../hocs/withAuth';
+import { message, Row, Col, Button, Input } from 'antd';
+import "antd/dist/antd.css"
+import styles from './Signin.module.css'
+import withAuth from '../hocs/withAuth'
 
 class Signin extends React.Component {
   state = {
     email: '',
   };
-  passwordRef = React.createRef(); // 한번 만들어지면 객체 인스턴스는 그대로
+  passwordRef = React.createRef(null); //한번 만들어지면 객체 인스턴스는 그대로
   render() {
+
     return (
-      <div>
-        <h1>로그인</h1>
-        <p>
-          <input type="text" value={this.state.email} onChange={this.change} />
-        </p>
-        <p>
-          <input type="password" ref={this.passwordRef} />
-        </p>
-        <p>
-          <button onClick={this.click}>로그인</button>
-        </p>
-      </div>
+      <form>
+        <Row align="middle" justify="center" className={styles.form_row}>
+          <Col span={24}>
+            <Row className={styles.content}>
+              <Col span={12}>
+                <img
+                  src="/bg.jpeg"
+                  alt="Cat"
+                  className={styles.signin_bg}
+                />
+
+              </Col>
+              <Col span={12} className={styles.sign_login}>
+
+                <h1>Welcome to My Books</h1>
+                <p className={styles.sign_id}>
+                  <div>Email</div>
+                  <Input className={styles.sign_input} type="email" value={this.state.email} onChange={this.change} />
+                </p>
+                <p className={styles.sign_pw}>
+                  <div>Password</div>
+                  <Input className={styles.sign_input} type="password" ref={this.passwordRef} />
+                </p>
+                <p>
+                  <Button className={styles.sign_btn} type="primary" onClick={this.click}>Login</Button>
+                </p>
+
+              </Col>
+            </Row>
+          </Col>
+        </Row>
+      </form >
     );
   }
-
   click = async () => {
-    console.log('login', this.state.email, this.passwordRef.current.value);
-
-    // 이메일과 패스워드를 뽑아서 서버에 보낸다. POST
-
-    // web api
-
-    // 무언가를 생성할 때, POST
-    // 무언가를 조회할 때, GET
-    // 무언가를 수정할 때, PATCH
-    // 무언가를 삭제할 때, DELETE
-    // ex) book, auth, user
-
-    // 서버에다가 내가 허가된 유저인지를 체크하고, 인증 토큰을 받아오는 행위
-
-    // 유저 테이블
-    // 유저아이디, 유저이메일, 유저패스워드, 유저생성일...
-
-    // 세션 테이블
-    // 세션아이디, 세션토큰, 세션생성일...
-
-    // 인증 토큰 브라우저 어딘가에 저장해두고,
-
-    // 다른 정보를 얻어올때, 나 인증한 유저야 라고 토큰을 함께 보냅니다.
-
-    // https://api.marktube.tv/v1/me POST {email, password}
-    // {token: ''}
-
     const email = this.state.email;
     const password = this.passwordRef.current.value;
-
     if (email === '' || password === '') return;
-
     try {
-      const response = await axios.post('https://api.marktube.tv/v1/me', {
-        email,
-        password,
-      });
-      // 1. 토큰을 저장한다.
+      const response = await axios.post('https://api.marktube.tv/v1/me', { email, password });
       const token = response.data.token;
-      console.log(token);
-      localStorage.setItem('token', token);
-      // 2. 홈으로 이동시킨다.
+      sessionStorage.setItem('token', token);
       this.props.history.push('/');
-    } catch (error) {
-      const errorCode = error?.response?.data?.error || 'NOT_MATCH';
-      if (errorCode === 'PASSWORD_NOT_MATCH') {
-        message.error('패스워드가 안맞드라');
-      } else if (errorCode === 'USER_NOT_EXIST') {
-        message.error('없는 이메일이야');
+    } catch (err) {
+      const errCode = err.response.data.error;
+      if (errCode === 'PASSWORD_NOT_MATCH') {
+        message.error('Password Not Match');
+      } else if (errCode === 'USER_NOT_EXIST') {
+        message.error('Unvalid User Email');
       } else {
-        message.error('나도 모르는 에러');
+        message.error('Unknown Error');
       }
     }
-  };
+  }
+  change = e => {
+    this.setState({ email: e.target.value })
+  }
 
-  change = (e) => {
-    this.setState({ email: e.target.value });
-  };
 }
 
 export default withAuth(Signin, false);

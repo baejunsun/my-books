@@ -1,0 +1,52 @@
+.form_row {
+  height: 100vh;
+}
+
+.signin_bg {
+  width: 500px;
+}
+
+.content {
+  margin: 0 auto;
+  width: 800px;
+}
+
+.sign_login {
+  display: grid;
+  background-color: gainsboro;
+  grid-template-rows: 200px 40px 40px;
+  grid-template-columns: 300px 1fr;
+  grid-template-areas:
+    "head head"
+    "inputid button"
+    "inputpw button";
+}
+
+.sign_login h1 {
+  margin-left: 20px;
+  grid-area: head;
+}
+
+.sign_id {
+  margin-left: 10px;
+
+  grid-area: inputid;
+}
+
+.sign_pw {
+  margin-left: 10px;
+  margin-top: 20px;
+  grid-area: inputpw;
+}
+
+.sign_btn {
+  margin-top: 20px;
+
+  grid-area: button;
+  margin-left: 20px;
+  height: 92px;
+}
+
+.sign_input {
+  width: 300px;
+}
